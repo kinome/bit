@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Kinome Toolbox</title>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/jqmath-0.2.0.min.css" />
+        <!-- Custom styles for this template -->
+        <style>
+            body {
+              min-height: 100px;
+              padding-top: 70px;
+            }
+            .scrollable-menu {
+                height: auto;
+                max-height: 200px;
+                overflow-x: hidden;
+            }
+        </style>
+    </head>
+    <body class=" hasGoogleVoiceExt">
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="toHome navbar-brand" href="#">Kinome Toolbox</a>
+        </div>
+      </div>
+    </nav>
+
+    <div id="status" class="container">
+
+    </div> <!-- /container -->
+
+    <div id="main_page" class="container">
+        <div class="text-center alert alert-info"><h2>This is the short URL generator for kinomecore.com</h2><h3>In <span id="count">5</span> seconds you will be taken to your redirect <span id="link">link</span>.</h3></div>
+    </div> <!-- /container -->
+
+    <div id="about_tab" style="display:none;" class="container">
+        <div class="text-center alert alert-info"><h2>Welcome to about! More coming soon!</h2></div>
+    </div>
+</body>
+    <div>
+        <script src="./js/client/general/jquery-3.1.0.min.js"></script>
+        <script src="./js/client/general/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            
+        (function () {
+            'use strict';
+
+            //bad practice, but the JS for this page is all here
+
+            var shortenedURLs = {
+                //figure 1, original paper, background normalization
+                'fig1': 'http://toolbox.kinomecore.com/?data=*[http://db.kinomecore.com:8000/db/kinome/lvl_1.0.1?find={%22name_id%22:{%22$in%22:[%224a39ff16-2322-4037-8912-91a8d0c16921%22,%22b9dc1baa-5a54-4785-b4ca-d6e5ecca8982%22,%2235df93bf-8a1e-4f12-a76a-1835de02e0bf%22]}}]*&data=*[http://db.kinomecore.com:8000/db/kinome/lvl_1.0.1?find={%22name_id%22:{%22$in%22:[%22d23a15e2-082d-4896-b1c4-e808c731dda2%22,%22588ba377-4b75-43a8-b4e8-e39c35d3024d%22,%2222703a41-4064-4d6f-8939-20586409428b%22]}}]*&data=*[http://db.kinomecore.com:8000/db/kinome/lvl_1.0.1?find={%22name_id%22:{%22$in%22:[%22fa7fadd6-e3eb-475d-a8a9-393f0b70cc73%22,%221208b67c-3109-4b8f-bb4a-bc4b96b0c20a%22,%2281941543-ad28-450f-a788-b75437ac72c5%22]}}]*&data=*[http://db.kinomecore.com:8000/db/kinome/lvl_1.0.1?find={%22name_id%22:{%22$in%22:[%22ece0ab9c-4a2a-4fd2-ac63-fc0fa72c988a%22,%220e564f09-e2d8-4d6c-98bd-d297950b757c%22,%221c95945b-7f63-4e4a-a92b-63c7a081d42f%22]}}]*',
+                'fig2a': '',
+                'fig2b': '',
+                'tab1a': '',
+                'tab1b': '',
+                'tab2': '',
+                'fig3': ''
+            }
+
+            var secondCount = 0, maxSeconds = 5;
+            var urlKey = window.location.search.replace(/^\?/, '');
+            var myInterval = setInterval(function () {
+                secondCount += 1;
+                if (secondCount >= maxSeconds) {
+                    clearInterval(myInterval);
+                    window.location.href = shortenedURLs[urlKey];
+                }
+                $('#count').text(maxSeconds - secondCount);
+            }, 1000);
+
+            $('#link').html('<a href="' + shortenedURLs[urlKey] + '">link</a>');
+
+        }());
+
+
+
+
+        </script>
+    </div>
+</html>
