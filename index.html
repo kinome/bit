@@ -36,12 +36,9 @@
     </div> <!-- /container -->
 
     <div id="main_page" class="container">
-        <div class="text-center alert alert-info"><h2>This is the short URL generator for kinomecore.com</h2><h3>In <span id="count">5</span> seconds you will be taken to your redirect <span id="link">link</span>.</h3></div>
+        <div id="text_for_link" class="text-center alert alert-info"><h2>This is the short URL generator for kinomecore.com</h2><h3>In <span id="count">5</span> seconds you will be taken to your redirect <span id="link">link</span>.</h3></div>
     </div> <!-- /container -->
 
-    <div id="about_tab" style="display:none;" class="container">
-        <div class="text-center alert alert-info"><h2>Welcome to about! More coming soon!</h2></div>
-    </div>
 </body>
     <div>
         <script src="./js/client/general/jquery-3.1.0.min.js"></script>
@@ -75,25 +72,32 @@
             }
             var myURL = shortenedURLs[urlKey];
 
-            //add in params
-            if (params && myURL.match(/\?/)) {
-                myURL = myURL + '&' + params;
-            } else if (params) {
-                myURL = myURL + '?' + params;
-            }
-            
-            //Set clickable link
-            $('#link').html('<a href="' + myURL + '">link</a>');
-
-            //start count down
-            var myInterval = setInterval(function () {
-                secondCount += 1;
-                if (secondCount >= maxSeconds) {
-                    clearInterval(myInterval);
-                    window.location.href = myURL;
+            if (shortenedURLs.hasOwnProperty(urlKey)) {
+                //add in params
+                if (params && myURL.match(/\?/)) {
+                    myURL = myURL + '&' + params;
+                } else if (params) {
+                    myURL = myURL + '?' + params;
                 }
-                $('#count').text(maxSeconds - secondCount);
-            }, 1000);
+                
+
+                //Set clickable link
+                $('#link').html('<a href="' + myURL + '">link</a>');
+
+                //start count down
+                var myInterval = setInterval(function () {
+                    secondCount += 1;
+                    if (secondCount >= maxSeconds) {
+                        clearInterval(myInterval);
+                        window.location.href = myURL;
+                    }
+                    $('#count').text(maxSeconds - secondCount);
+                }, 1000);
+            } else {
+                $('#text_for_link').html('That shortcut was not found.');
+            }
+
+                
 
         }());
         </script>
